@@ -55,33 +55,53 @@
         android:layout_height="wrap_content" />
 
     <!-- Answer buttons -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Option 1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#000000"/>
 
-    <Button
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption2"
-        android:text="Option 2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" />
+        android:text="Option 1"
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#000000"/>
 
-    <Button
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption3"
-        android:text="Option 3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" />
+        android:text="Option 1"
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#000000"/>
 
-    <Button
+
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOption4"
-        android:text="Option 4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:text="Option 1"
+        android:layout_marginBottom="12dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#000000"/>
+
+
 
     <!-- Next question button -->
     <Button

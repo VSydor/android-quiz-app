@@ -1,6 +1,8 @@
 package com.example.quizapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quizapp.model.Question;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,7 +22,9 @@ import java.util.Locale;
 public class QuizActivity extends AppCompatActivity {
 
     private TextView tvQuestion, tvQuestionCounter, tvTimer;
-    private Button btnOption1, btnOption2, btnOption3, btnOption4, btnNext;
+    private MaterialButton btnOption1, btnOption2, btnOption3, btnOption4;
+
+    private Button btnNext;
     private ProgressBar progressBar;
 
     private List<Question> questionList;
@@ -79,11 +84,11 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+
     private void showQuestion() {
         Question q = questionList.get(currentQuestionIndex);
 
         tvQuestion.setText(q.getQuestion());
-
         btnOption1.setText(q.getOptions().get(0));
         btnOption2.setText(q.getOptions().get(1));
         btnOption3.setText(q.getOptions().get(2));
@@ -93,34 +98,42 @@ public class QuizActivity extends AppCompatActivity {
                 "Question %d / %d", currentQuestionIndex + 1, questionList.size()));
         progressBar.setProgress(currentQuestionIndex + 1);
 
-        // ✅ Re-enable answer buttons for new question
-        btnOption1.setEnabled(true);
-        btnOption2.setEnabled(true);
-        btnOption3.setEnabled(true);
-        btnOption4.setEnabled(true);
+        MaterialButton[] buttons = {btnOption1, btnOption2, btnOption3, btnOption4};
+        for (MaterialButton btn : buttons) {
+            btn.setEnabled(true);
+            btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF"))); // reset background
+            btn.setTextColor(Color.BLACK); // reset text color
+        }
 
-        // Disable Next button until user selects an answer
         btnNext.setEnabled(false);
-
-        // Reset timer
         resetTimer();
         startTimer();
     }
 
     private void checkAnswer(int selectedIndex) {
         Question q = questionList.get(currentQuestionIndex);
-        if (selectedIndex == q.getCorrectIndex()) {
-            score++;
-            Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+
+        MaterialButton[] buttons = {btnOption1, btnOption2, btnOption3, btnOption4};
+
+        // Highlight correct answer green
+        buttons[q.getCorrectIndex()].setBackgroundTintList(
+                ColorStateList.valueOf(Color.parseColor("#4CAF50")));
+
+        // Highlight wrong selection red
+        if (selectedIndex != q.getCorrectIndex()) {
+            buttons[selectedIndex].setBackgroundTintList(
+                    ColorStateList.valueOf(Color.parseColor("#F44336")));
         } else {
-            Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
+            score++;
         }
 
-        btnOption1.setEnabled(false);
-        btnOption2.setEnabled(false);
-        btnOption3.setEnabled(false);
-        btnOption4.setEnabled(false);
+        // Disable all answer buttons
+        for (MaterialButton btn : buttons) btn.setEnabled(false);
+
+        // Enable Next button
         btnNext.setEnabled(true);
+
+        // Stop timer
         stopTimer();
     }
 
